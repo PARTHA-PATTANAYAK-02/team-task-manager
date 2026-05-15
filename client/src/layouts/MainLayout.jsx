@@ -8,12 +8,19 @@ function MainLayout({ children }) {
 
     navigate("/");
   };
+  const user = JSON.parse(localStorage.getItem("user"));
   return (
     <div className="flex min-h-screen bg-gray-100">
       {/* Sidebar */}
       <div className="w-64 bg-black text-white p-5">
         <h1 className="text-2xl font-bold mb-10">Task Manager</h1>
+        <div className="mb-10">
+          <p className="text-gray-400 text-sm">Logged in as</p>
 
+          <h2 className="font-semibold text-lg">{user?.name}</h2>
+
+          <p className="text-sm text-gray-400">{user?.role}</p>
+        </div>
         <div className="flex flex-col gap-4">
           <Link to="/dashboard" className="hover:bg-gray-800 p-2 rounded">
             Dashboard

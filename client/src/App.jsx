@@ -7,6 +7,7 @@ import Projects from "./pages/Projects";
 import Tasks from "./pages/Tasks";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import PublicRoute from "./routes/PublicRoute";
+import { Toaster } from "react-hot-toast";
 function App() {
   return (
     <BrowserRouter>
@@ -55,6 +56,7 @@ function App() {
             }
           />
         </Routes>
+        <Toaster position="top-right" />
       </div>
     </BrowserRouter>
   );

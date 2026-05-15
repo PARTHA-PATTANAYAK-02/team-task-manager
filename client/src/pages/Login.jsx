@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
+import toast from "react-hot-toast";
 import API from "../services/api";
 
 function Login() {
@@ -30,11 +30,11 @@ function Login() {
       // Save user
       localStorage.setItem("user", JSON.stringify(res.data.user));
 
-      alert("Login Successful");
+      toast.success("Login Successful");
 
       navigate("/dashboard");
     } catch (error) {
-      alert(error.response.data.message);
+      toast.error(error.response.data.message);
     }
   };
 

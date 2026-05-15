@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-
+import toast from "react-hot-toast";
 import MainLayout from "../layouts/MainLayout";
 
 import API from "../services/api";
 
 function Projects() {
   const [projects, setProjects] = useState([]);
+  const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -45,9 +46,9 @@ function Projects() {
         description: "",
       });
 
-      alert("Project Created");
+      toast.success("Project Created");
     } catch (error) {
-      console.log(error);
+      toast.error(error.response?.data?.message || "Something went wrong");
     }
   };
 
@@ -68,34 +69,65 @@ function Projects() {
           <p className="text-gray-600 mt-2">Manage your team projects</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="flex gap-3">
-          <input
-            type="text"
-            name="title"
-            placeholder="Project title"
-            value={formData.title}
-            onChange={handleChange}
-            className="border p-3 rounded-lg text-black"
-          />
-
-          <input
-            type="text"
-            name="description"
-            placeholder="Description"
-            value={formData.description}
-            onChange={handleChange}
-            className="border p-3 rounded-lg text-black"
-          />
-
-          <button
-            type="submit"
-            className="bg-black text-white px-5 py-3 rounded-xl"
-          >
-            Create Project
-          </button>
-        </form>
+        <button
+          onClick={() => setShowModal(true)}
+          className="bg-black text-white px-5 py-3 rounded-xl"
+        >
+          Create Project
+        </button>
       </div>
+      {showModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-2xl w-full max-w-md">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-bold text-black">Create Project</h2>
 
+              <button
+                onClick={() => setShowModal(false)}
+                className="text-black text-xl"
+              >
+                ✕
+              </button>
+            </div>
+
+            <form
+              onSubmit={async (e) => {
+                await handleSubmit(e);
+
+                setShowModal(false);
+              }}
+              className="space-y-4"
+            >
+              <input
+                type="text"
+                name="title"
+                placeholder="Project title"
+                value={formData.title}
+                onChange={handleChange}
+                required="true"
+                className="w-full border p-3 rounded-lg text-black"
+              />
+
+              <input
+                type="text"
+                name="description"
+                placeholder="Description"
+                value={formData.description}
+                onChange={handleChange}
+                required="true"
+                className="w-full border p-3 rounded-lg text-black"
+              />
+
+              <button
+                type="submit"
+                className="w-full bg-black text-white py-3 rounded-lg"
+              >
+                Create Project
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
       {/* Dynamic Projects */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {projects.map((project) => (
@@ -112,12 +144,13 @@ function Projects() {
 
             <div className="flex items-center justify-between">
               <p className="text-sm text-gray-500">
-                Team Members: {project.teamMembers.length}
+                {/* Team Members: {project.teamMembers.length} */}
+                Created By: {project.createdBy?.name}
               </p>
 
-              <button className="bg-black text-white px-4 py-2 rounded-lg">
+              {/* <button className="bg-black text-white px-4 py-2 rounded-lg">
                 View
-              </button>
+              </button> */}
             </div>
           </div>
         ))}

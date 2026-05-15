@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-
+import toast from "react-hot-toast";
 import MainLayout from "../layouts/MainLayout";
 
 import API from "../services/api";
 
 function Tasks() {
   const [tasks, setTasks] = useState([]);
-
+  const [showModal, setShowModal] = useState(false);
   const [projects, setProjects] = useState([]);
 
   const [formData, setFormData] = useState({
@@ -77,9 +77,9 @@ function Tasks() {
         dueDate: "",
       });
 
-      alert("Task Created");
+      toast.success("Task Created");
     } catch (error) {
-      console.log(error);
+      toast.error(error.response?.data?.message || "Something went wrong");
     }
   };
 
@@ -104,59 +104,87 @@ function Tasks() {
 
           <p className="text-gray-600 mt-2">Track and manage all tasks</p>
         </div>
-      </div>
 
-      {/* Create Task Form */}
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white p-6 rounded-2xl shadow mb-8 grid grid-cols-1 md:grid-cols-4 gap-4"
-      >
-        <input
-          type="text"
-          name="title"
-          placeholder="Task title"
-          value={formData.title}
-          onChange={handleChange}
-          className="border p-3 rounded-lg text-black"
-        />
-
-        <input
-          type="text"
-          name="description"
-          placeholder="Description"
-          value={formData.description}
-          onChange={handleChange}
-          className="border p-3 rounded-lg text-black"
-        />
-
-        <select
-          name="project"
-          value={formData.project}
-          onChange={handleChange}
-          className="border p-3 rounded-lg text-black"
+        <button
+          onClick={() => setShowModal(true)}
+          className="bg-black text-white px-5 py-3 rounded-xl"
         >
-          <option value="">Select Project</option>
-
-          {projects.map((project) => (
-            <option key={project._id} value={project._id}>
-              {project.title}
-            </option>
-          ))}
-        </select>
-
-        <input
-          type="date"
-          name="dueDate"
-          value={formData.dueDate}
-          onChange={handleChange}
-          className="border p-3 rounded-lg text-black"
-        />
-
-        <button type="submit" className="bg-black text-white py-3 rounded-lg">
           Create Task
         </button>
-      </form>
+      </div>
+      {showModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-2xl w-full max-w-lg">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-bold text-black">Create Task</h2>
 
+              <button
+                onClick={() => setShowModal(false)}
+                className="text-black text-xl"
+              >
+                ✕
+              </button>
+            </div>
+
+            <form
+              onSubmit={async (e) => {
+                await handleSubmit(e);
+
+                setShowModal(false);
+              }}
+              className="space-y-4"
+            >
+              <input
+                type="text"
+                name="title"
+                placeholder="Task title"
+                value={formData.title}
+                onChange={handleChange}
+                className="w-full border p-3 rounded-lg text-black"
+              />
+
+              <input
+                type="text"
+                name="description"
+                placeholder="Description"
+                value={formData.description}
+                onChange={handleChange}
+                className="w-full border p-3 rounded-lg text-black"
+              />
+
+              <select
+                name="project"
+                value={formData.project}
+                onChange={handleChange}
+                className="w-full border p-3 rounded-lg text-black"
+              >
+                <option value="">Select Project</option>
+
+                {projects.map((project) => (
+                  <option key={project._id} value={project._id}>
+                    {project.title}
+                  </option>
+                ))}
+              </select>
+
+              <input
+                type="date"
+                name="dueDate"
+                value={formData.dueDate}
+                onChange={handleChange}
+                className="w-full border p-3 rounded-lg text-black"
+              />
+
+              <button
+                type="submit"
+                className="w-full bg-black text-white py-3 rounded-lg"
+              >
+                Create Task
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
       {/* Dynamic Task Table */}
       <div className="bg-white rounded-2xl shadow overflow-hidden">
         <table className="w-full">

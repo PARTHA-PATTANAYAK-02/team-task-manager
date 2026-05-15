@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
+import toast from "react-hot-toast";
 import API from "../services/api";
 
 function Register() {
@@ -26,11 +26,11 @@ function Register() {
     try {
       const res = await API.post("/auth/register", formData);
 
-      alert(res.data.message);
+      toast.success(res.data.message);
 
       navigate("/");
     } catch (error) {
-      alert(error.response.data.message);
+      toast.error(error.response.data.message);
     }
   };
 
