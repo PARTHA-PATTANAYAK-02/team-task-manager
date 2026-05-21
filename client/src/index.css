@@ -1,1 +1,213 @@
 @import "tailwindcss";
+
+/* ========== ANIMATIONS ========== */
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 0.6;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+/* ========== UTILITY CLASSES ========== */
+.animate-slideUp {
+    animation: slideUp 0.4s ease-out forwards;
+}
+
+.animate-fadeIn {
+    animation: fadeIn 0.2s ease-out forwards;
+}
+
+.animate-scaleIn {
+    animation: scaleIn 0.3s ease-out forwards;
+}
+
+.animate-float {
+    animation: float 3s ease-in-out infinite;
+}
+
+.animate-pulse-slow {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* ========== SIDEBAR MENU ========== */
+.sidebar-item {
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar-item:hover {
+    transform: translateX(6px);
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(168, 85, 247, 0.15));
+}
+
+.sidebar-item-active {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(168, 85, 247, 0.2));
+    border-left: 3px solid #6366f1;
+}
+
+/* ========== CARD HOVER EFFECTS ========== */
+.card-hover {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 35px -15px rgba(0, 0, 0, 0.4);
+    border-color: rgba(99, 102, 241, 0.5);
+}
+
+/* ========== STAT CARD HOVER ========== */
+.stat-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+}
+
+.stat-card:hover {
+    transform: translateY(-4px) scale(1.02);
+    background: rgba(51, 65, 85, 0.7);
+}
+
+.stat-card:hover .stat-icon {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.stat-icon {
+    transition: all 0.3s ease;
+}
+
+/* ========== TABLE ROW HOVER ========== */
+.table-row-hover {
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.table-row-hover:hover {
+    transform: translateX(4px);
+    background: rgba(99, 102, 241, 0.08);
+}
+
+/* ========== PROJECT CARD HOVER ========== */
+.project-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+}
+
+.project-card:hover {
+    transform: translateY(-6px) scale(1.01);
+    border-color: rgba(99, 102, 241, 0.5);
+    box-shadow: 0 25px 35px -15px rgba(0, 0, 0, 0.4);
+}
+
+.project-card:hover .project-title {
+    color: #818cf8;
+}
+
+.project-title {
+    transition: color 0.2s ease;
+}
+
+/* ========== TASK CARD HOVER ========== */
+.task-card {
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.task-card:hover {
+    transform: translateX(6px);
+    background: rgba(99, 102, 241, 0.06);
+}
+
+.task-card:hover .task-title {
+    color: #818cf8;
+}
+
+.task-title {
+    transition: color 0.2s ease;
+}
+
+/* ========== BUTTON HOVER ========== */
+.btn-3d {
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.btn-3d:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px -10px rgba(0, 0, 0, 0.3);
+}
+
+.btn-3d:active {
+    transform: translateY(0px);
+}
+
+/* ========== SCROLLBAR ========== */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #1e293b;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #475569;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #6366f1;
+}
