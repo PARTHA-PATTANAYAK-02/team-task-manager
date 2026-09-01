@@ -4,7 +4,7 @@ A full-stack Team Task Manager web application built using the MERN stack. Users
 
 ## Live Demo
 
-Frontend URL: [https://team-task-manager-six-psi.vercel.app/](https://team-task-manager-six-psi.vercel.app/)
+Frontend URL: [https://team-task-manager-frontend-gnye.onrender.com/](https://team-task-manager-frontend-gnye.onrender.com/)
 
 Backend URL: [https://team-task-manager-backend-6dra.onrender.com](https://team-task-manager-backend-6dra.onrender.com)
 
